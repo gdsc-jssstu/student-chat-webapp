@@ -1,0 +1,25 @@
+{
+  "name": "student-chat-webapp",
+  "version": "1.0.0",
+  "description": "a simple chat applications to help students find friends on their campus",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gdsc-jssstu/student-chat-webapp.git"
+  },
+  "keywords": [
+    "chat",
+    "webapp",
+    "express"
+  ],
+  "author": "GDSC JSSSTU",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/gdsc-jssstu/student-chat-webapp/issues"
+  },
+  "homepage": "https://github.com/gdsc-jssstu/student-chat-webapp#readme"
+}
