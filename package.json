@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/gdsc-jssstu/student-chat-webapp/issues"
   },
-  "homepage": "https://github.com/gdsc-jssstu/student-chat-webapp#readme"
+  "homepage": "https://github.com/gdsc-jssstu/student-chat-webapp#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
