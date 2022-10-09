@@ -13,12 +13,13 @@ const UserRoutes = require('./routes/UserRoutes')(Student, passport);
 const ApplicationRoutes = require('./routes/ApplicationRoutes')();
 
 const http = require('http');
-
+const socketio = require('socket.io');
 
 class Server {
     constructor(config) {
         this.express_app = express();
         this.http_server = http.Server(this.express_app);
+        this.sockio = new socketio.Server(this.http_server);
         this.port = config.port;
 
         // Set-up express middle-wares
@@ -39,6 +40,9 @@ class Server {
 
         // Register routes
         this.register_routes();
+
+        // Register socket io listener
+        this.register_sockio_listeners();
     }
 
     run(callback) {
@@ -52,6 +56,12 @@ class Server {
         app.post("/login",UserRoutes.loginRoute);
         app.get("/logout",UserRoutes.logoutRoute);
         app.get("/chat",ApplicationRoutes.chat);
+    }
+
+    register_sockio_listeners() {
+        this.sockio.on('connection', (socket) => {
+            console.log("Hello from socketio");
+        });
     }
 }
 
