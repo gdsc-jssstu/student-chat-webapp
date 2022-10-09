@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+form{
+    height: 250px;
+    width: 500px;
+
+    margin: 50px auto;
+}
+
+a{
+    margin: 10px auto;
+}

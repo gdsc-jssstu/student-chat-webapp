@@ -1,11 +1,19 @@
 // Author: GDSC JSSSTU Core-team
 // SPDX-License-Identifier: BSD-2-Clause
- 
+
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const bodyPraser = require('body-parser');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require("passport");
+const Student = require('./models/StudentSchema')(mongoose, passport);
+const UserRoutes = require('./routes/UserRoutes')(Student, passport);
+const ApplicationRoutes = require('./routes/ApplicationRoutes')();
 
 const http = require('http');
+
 
 class Server {
     constructor(config) {
@@ -18,7 +26,16 @@ class Server {
         app.use(morgan('dev'));
         app.use(helmet());
         app.use(express.static(config.static_dir));
-        // TODO: add those middle wares
+        app.use(bodyPraser.urlencoded({extended:true}));
+        app.use(session({
+          secret: config.secret,
+          resave: false,
+          saveUninitialized: false
+        }));
+        app.use(passport.initialize());
+        app.use(passport.session());
+
+        mongoose.connect(config.db)
 
         // Register routes
         this.register_routes();
@@ -30,6 +47,11 @@ class Server {
     }
 
     register_routes() {
+        const app = this.express_app;
+        app.post("/register",UserRoutes.registerRoute);
+        app.post("/login",UserRoutes.loginRoute);
+        app.get("/logout",UserRoutes.logoutRoute);
+        app.get("/chat",ApplicationRoutes.chat);
     }
 }
 
