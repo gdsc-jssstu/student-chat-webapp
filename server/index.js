@@ -5,9 +5,12 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const http = require('http');
+
 class Server {
     constructor(config) {
         this.express_app = express();
+        this.http_server = http.Server(this.express_app);
         this.port = config.port;
 
         // Set-up express middle-wares
@@ -15,11 +18,18 @@ class Server {
         app.use(morgan('dev'));
         app.use(helmet());
         app.use(express.static(config.static_dir));
+        // TODO: add those middle wares
+
+        // Register routes
+        this.register_routes();
     }
 
     run(callback) {
         const port = this.port || 3000;
-        this.express_app.listen(port, callback);
+        this.http_server.listen(port, callback);
+    }
+
+    register_routes() {
     }
 }
 
