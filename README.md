@@ -37,6 +37,14 @@ To run the project use:
 nodemon app
 ```
 
+or
+
+```
+npm start
+```
+
+
+
 To connect to mongodb use:
 ```
 mongod
