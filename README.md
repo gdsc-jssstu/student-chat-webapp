@@ -48,7 +48,7 @@ To see the list available:
 ```
 show dbs
 ```
-To connect to db:
+
 
 
 ---
