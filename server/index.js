@@ -15,11 +15,18 @@ const ApplicationRoutes = require('./routes/ApplicationRoutes')();
 const http = require('http');
 const socketio = require('socket.io');
 
+class Client {
+    constructor(socket, username) {
+        this.socket = socket;
+        this.username = username;
+    }
+}
+
 class Server {
     constructor(config) {
+        this.connected_clients = []
         this.express_app = express();
         this.http_server = http.Server(this.express_app);
-        this.sockio = new socketio.Server(this.http_server);
         this.port = config.port;
 
         // Set-up express middle-wares
@@ -28,13 +35,22 @@ class Server {
         app.use(helmet());
         app.use(express.static(config.static_dir));
         app.use(bodyPraser.urlencoded({extended:true}));
-        app.use(session({
+
+        const express_session = session({
           secret: config.secret,
           resave: false,
           saveUninitialized: false
-        }));
+        });
+
+        app.use(express_session);
         app.use(passport.initialize());
         app.use(passport.session());
+
+        // Hook-in express-session to the socket-io Server
+        this.sockio = new socketio.Server(this.http_server)
+            .use((socket, next) => {
+            express_session(socket.request, {}, next);
+        });
 
         mongoose.connect(config.db)
 
@@ -56,13 +72,43 @@ class Server {
         app.post("/login",UserRoutes.loginRoute);
         app.get("/logout",UserRoutes.logoutRoute);
         app.get("/chat",ApplicationRoutes.chat);
+        app.get("/users", (_, res) => res.json(this.get_username_list()));
     }
 
     register_sockio_listeners() {
         this.sockio.on('connection', (socket) => {
-            console.log("Hello from socketio");
+            if (socket.request.session.passport === undefined) {
+                socket.disconnect();
+                return;
+            }
+            const username = socket.request.session.passport.user;
+            console.log(`[SOCKET LOG] ${username} connected`);
+            const client = new Client(socket, username);
+
+            this.connected_clients.push(client);
+            this.sockio.emit('join', {username: username});
+
+            socket.on('disconnect', () => {
+                console.log(`[SOCKET LOG] ${username} disconnected`);
+                this.connected_clients.splice(this.connected_clients.indexOf(client), 1);
+                this.sockio.emit('leave', {username: username});
+            });
+
+            socket.on('message', (msg) => {
+                this.sockio.emit('msg', {
+                    username: username,
+                    message: msg
+                });
+            });
         });
     }
+
+    get_username_list() {
+        const list = [];
+        this.connected_clients.forEach(client => list.push(client.username));
+        return list;
+    }
+    
 }
 
 module.exports = Server;

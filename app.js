@@ -9,7 +9,7 @@ const server_config = {
     port: 3000,
 
     // URI to the mongo database
-    db: "mongodb://localhost:27017/studentsDB",
+    db: process.env.db || "mongodb://localhost:27017/studentsDB",
 
     // Static files folder name
     static_dir: 'public',

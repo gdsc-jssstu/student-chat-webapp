@@ -8,6 +8,7 @@
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="socket.io.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -33,38 +34,19 @@
 
 
     <div class="main">
-        <div class="left">
-            <div class="small_box">
-                <img src="Cartoon-Face-DRAWING-–-STEP-10.jpg" alt="">
-                <h4>User1</h4>
-            </div>
-
-
-            <div class="small_box">
-                <img src="Cartoon-Face-DRAWING-–-STEP-10.jpg" alt="">
-                <h4>User2</h4>
-            </div>
-
-            <div class="small_box">
-                <img src="Cartoon-Face-DRAWING-–-STEP-10.jpg" alt="">
-                <h4>User3</h4>
-            </div>
+        <div class="left" id="userlist" >
         </div>
 
         <div class="right_msgArea">
-            <div class="chat_area">
-                <div class="chat">
-                    <h3>User1</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis porro deleniti, optio expedita provident numquam..</p>
-                </div>
+            <div class="chat_area" id="chatarea">
             </div>
-            <form class="row g-3" method="post">
+            <form class="row g-3" id="sendform">
                 <div class="col-auto">
                   <label for="exampleFormControlTextarea1" class="form-label">Type message</label>
                 </div>
                 <div class="col-9">
                   <label for="inputPassword2" class="visually-hidden">Password</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example ">
+                  <input type="text" class="form-control" id="msginput" placeholder="Example ">
                 </div>
                 <div class="col-auto">
                   <button type="submit" class="btn btn-primary">Send</button>
@@ -75,5 +57,6 @@
 
 
 
+    <script src="chat.js"></script>
 </body>
 </html>
