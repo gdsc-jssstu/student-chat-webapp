@@ -12,7 +12,12 @@
     <title>Document</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-light">
+  <div class="header">
+    <div class="header-text">Students Chat Room</div>
+    <div class="btn"><button><a aria-current="page" href="/logout">Logout</a></button></div>
+  </div>
+
+  <!-- <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="/chat">Students Chat Room</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,36 +29,34 @@
               <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
             </li>
           </ul>
-              <!-- <form class="d-flex" role="search">
+              <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-              </form> -->
+              </form>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
 
     <div class="main">
         <div class="left" id="userlist" >
         </div>
-
         <div class="right_msgArea">
             <div class="chat_area" id="chatarea">
             </div>
-            <form class="row g-3" id="sendform">
-                <div class="col-auto">
-                  <label for="exampleFormControlTextarea1" class="form-label">Type message</label>
-                </div>
-                <div class="col-9">
-                  <label for="inputPassword2" class="visually-hidden">Password</label>
-                  <input type="text" class="form-control" id="msginput" placeholder="Example ">
-                </div>
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-primary">Send</button>
-                </div>
-              </form>
+          </div>
         </div>
-    </div>
+        <form class="form" id="sendform">
+       
+            <div class=" msg-input ">
+              <label for="inputPassword2" class="visually-hidden">Password</label>
+              <input type="text" class="form-control" id="msginput" placeholder="Type your text here">
+            </div>
+            <div class="sendBtn">
+             <button type="submit">Send</button>
+              
+            </div>
+          </form>
 
 
 
