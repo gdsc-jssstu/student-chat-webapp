@@ -19,7 +19,7 @@ The tech stack used here is,
 
 - Mongoose 6.6.5
 
-- EJS 3.1.8
+
 
 ---
 
