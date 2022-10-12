@@ -9,21 +9,23 @@
     <title>Document</title>
 </head>
 <body>
+  <div class="header-text">Students Chat Room</div>
+
     <form action="/register" method="POST">
-        <div class="mb-3">
+        <div class="mb-3 fields">
             <label for="lastName" class="form-label">User name</label>
-            <input class="form-control" type="text" placeholder="last name" aria-label="default input example" name="username">
+            <input class="form-control" type="text" aria-label="default input example" name="username">
         </div>
-        <div class="mb-3">
+        <div class="mb-3 fields">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
         </div>
-        <div class="mb-3">
+        <div class="mb-3 fields">
             <label for="password" class="form-label">Enter password</label>
             <input class="form-control" type="text" placeholder="" aria-label="default input example" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-        <a href="login.html">Already have an account?Login</a>
+       <div class="submit-btn btn"> <button type="submit">Register</button></div>
+       <span>Already have an account?   <a href="login.html">Login</a></span>
     </form>
 </body>
 </html>
