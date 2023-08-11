@@ -72,7 +72,13 @@ class Server {
         app.post("/login",UserRoutes.loginRoute);
         app.get("/logout",UserRoutes.logoutRoute);
         app.get("/chat",ApplicationRoutes.chat);
-        app.get("/users", (_, res) => res.json(this.get_username_list()));
+        app.get("/users", (req,res)=>{
+            if(req.isAuthenticated()){
+                res.json(this.get_username_list());
+            }else{
+                res.redirect("/");
+            }
+        });
     }
 
     register_sockio_listeners() {
